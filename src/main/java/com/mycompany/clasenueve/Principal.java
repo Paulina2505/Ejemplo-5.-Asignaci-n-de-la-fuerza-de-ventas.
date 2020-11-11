@@ -16,22 +16,24 @@ public class Principal {
     private static double[] fitness;
     private static double probabilidadCruza = 0.7;
     private static double probabilidadMutacion = 0.3;
-    private static int individuos = 10;
-    private static int genes = 4;
+    private static int individuos = 50;
+    private static int genes = 6;
     
     public static void main(String[] args) {
         generarPoblacionInicial();
         fitness = new double[individuos];
         for (int j = 0; j < fitness.length; j++){ fitness[j] = fitness(decimales[j]); /*System.out.println(fitness[j]);*/}
         for (int i = 0; i < genes*individuos; i++) {
-            int papa = papaMenor();
-            int mama = mamaMenor(papa);
+            int papa = papaMayor();
+            int mama = mamaMayor(papa);
             cruza(papa,mama);
             mutacion(papa,mama);
             for (int j = 0; j < individuos; j++) decimales[j] = binarioToDecimal(binarios[j]);
             for (int j = 0; j < fitness.length; j++){ fitness[j] = fitness(decimales[j]); /*System.out.println(fitness[j]);*/}
         }
-        System.out.println("RESULTADO: "+fitness(decimales[papaMenor()]));
+        System.out.println("RESULTADO: ");
+        System.out.println("UTILIDAD ANUAL: "+fitness(decimales[papaMayor()]));
+        System.out.println("NÚMERO DE REPRESENTANTES: "+decimales[papaMayor()]);
     }
     
     public static void generarPoblacionInicial() {
@@ -70,7 +72,7 @@ public class Principal {
         return resultado;
     }
     
-    public static double fitness(int x) {return (5*x*x)-(20*x)+3;}
+    public static double fitness(int x) {return (-12.5*x*x)+(1375*x)-(1500);}
     
     public static int papaMayor() {
         double mayor = fitness[0];
